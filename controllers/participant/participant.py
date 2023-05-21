@@ -31,7 +31,7 @@ class Wrestler (Robot):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
-            motion_library.play('Backwards')
+            motion_library.play('TurnLeft180')
 
 
 # create the Robot instance and run main loop
