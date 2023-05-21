@@ -36,4 +36,5 @@ class Wrestler (Robot):
 
 # create the Robot instance and run main loop
 wrestler = Wrestler()
+
 wrestler.run()
