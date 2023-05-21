@@ -33,7 +33,6 @@ class Wrestler (Robot):
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
             motion_library.play('TurnLeft180')
 
-
 # create the Robot instance and run main loop
 wrestler = Wrestler()
 
