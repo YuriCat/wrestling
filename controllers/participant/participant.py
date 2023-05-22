@@ -54,7 +54,8 @@ class Wrestler(Robot):
         self.leds['right'].set(0x0000ff)
         self.leds['left'].set(0x0000ff)
 
-        self.current_motion.set(self.library.get('Stand'))
+        #self.current_motion.set(self.library.get('Stand'))
+        self.current_motion.set(self.library.get('Forwards'))
 
         while self.step(self.time_step) != -1:
             self.prev_status = self.status
