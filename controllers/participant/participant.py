@@ -25,17 +25,15 @@ from utils.motion_library import MotionLibrary
 
 
 class Wrestler (Robot):
-    def __init__(self):
-        self.count = 0
-
     def run(self):
+        count = 0
         # to load all the motions from the motions folder, we use the MotionLibrary class:
         motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
-            action = 'TurnLeft180' if self.count % 3 != 2 else 'Forwards'
-            self.count += 1
+            action = 'TurnLeft180' if count % 3 != 2 else 'Forwards'
+            count += 1
             motion_library.play(action)
 
 # create the Robot instance and run main loop
