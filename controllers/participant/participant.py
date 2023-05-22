@@ -124,7 +124,7 @@ class WalkSideSmall(Robot):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
-            action = 'SideStepLeft'
+            action = 'SideStepLeftLoop'
             count += 1
             motion_library.play(action)
 
@@ -148,8 +148,9 @@ class RightEscape(Robot):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
 
-        for i in range(1):
+        for _ in range(1):
             motion_library.play('TurnRight60')
+            self.step(time_step)
 
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
             motion_library.play('ForwardLoop')
@@ -157,5 +158,6 @@ class RightEscape(Robot):
 
 # create the Robot instance and run main loop
 #wrestler = Wrestler()
-wrestler = RightEscape()
+#wrestler = RightEscape()
+wrestler = WalkSideSmall()
 wrestler.run()
