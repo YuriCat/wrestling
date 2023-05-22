@@ -134,6 +134,7 @@ class Forward(Robot):
         motion_library = MotionLibrary()
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
+       
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
             action = 'ForwardLoop'
             self.count_ += 1
@@ -152,12 +153,16 @@ class RightEscape(Robot):
             motion_library.play('TurnRight60')
             self.step(time_step)
 
+        for _ in range(3):
+            motion_library.play('Forwards')
+            self.step(time_step)
+
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
-            motion_library.play('ForwardLoop')
+            motion_library.play('Stand')
 
 
 # create the Robot instance and run main loop
 #wrestler = Wrestler()
-#wrestler = RightEscape()
-wrestler = WalkSideSmall()
+wrestler = RightEscape()
+#wrestler = WalkSideSmall()
 wrestler.run()
