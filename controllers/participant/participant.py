@@ -24,6 +24,7 @@ sys.path.append('..')
 from utils.accelerometer import Accelerometer
 from utils.motion_library import MotionLibrary
 from utils.current_motion_manager import CurrentMotionManager
+from utils.camera import Camera
 
 
 class Wrestler(Robot):
@@ -52,15 +53,17 @@ class Wrestler(Robot):
 
         status = 'DEFAULT'
         count = 0
+        camera = Camera()
+        already_fall = False
 
-        #self.current_motion.set(self.library.get('Stand'))
         self.current_motion.set(self.library.get('Forwards'))
 
         while self.step(self.time_step) != -1:
-            self.prev_status = self.status
+            prev_status = status
             fall_status = self.detect_fall()
             if fall_status is not None:
                 status = fall_status
+                already_fall = True
 
             if status == 'FRONT_FALL':
                 self.current_motion.set(self.library.get('GetUpFront'))
@@ -73,7 +76,7 @@ class Wrestler(Robot):
                     status = 'DEFAULT'
 
             if status == 'DEFAULT':
-                if count < 20:
+                if count < 500 and not already_fall:
                     self.current_motion.set(self.library.get('Forwards'))
                 else:
                     self.current_motion.set('TurnLeft180')
