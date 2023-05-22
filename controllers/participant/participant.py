@@ -24,7 +24,7 @@ sys.path.append('..')
 from utils.accelerometer import Accelerometer
 from utils.motion_library import MotionLibrary
 from utils.current_motion_manager import CurrentMotionManager
-from utils.camera import Camera
+#from utils.camera import Camera
 
 
 class Wrestler(Robot):
@@ -48,19 +48,19 @@ class Wrestler(Robot):
         self.library = MotionLibrary()
 
     def run(self):
-        self.leds['right'].set(0x0000ff)
-        self.leds['left'].set(0x0000ff)
+        #self.leds['right'].set(0x0000ff)
+        #self.leds['left'].set(0x0000ff)
 
         status = 'DEFAULT'
         count = 0
-        camera = Camera()
+        #camera = Camera()
         already_fall = False
 
         self.current_motion.set(self.library.get('ForwardLoop'))
 
         while self.step(self.time_step) != -1:
             prev_status = status
-            fall_status = self.detect_fall()
+            fall_status = self._detect_fall()
             if fall_status is not None:
                 status = fall_status
                 already_fall = True
@@ -77,12 +77,13 @@ class Wrestler(Robot):
 
             if status == 'DEFAULT':
                 if not already_fall:
-                    self.current_motion.set(self.library.get('ForwardLoop'))
+                    if self.current_motion.get() != self.library.get('ForwardLoop'):
+                        self.current_motion.set(self.library.get('ForwardLoop'))
                 else:
                     self.current_motion.set(self.library.get('TurnLeft180'))
                 count += 1
 
-    def detect_fall(self):
+    def _detect_fall(self):
         '''Detect a fall and update the FSM state.'''
         next_status = None
         [acc_x, acc_y, _] = self.accelerometer.get_new_average()
