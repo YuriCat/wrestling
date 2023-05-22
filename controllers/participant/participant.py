@@ -81,10 +81,12 @@ class David (Robot):
     def run(self):
         self.leds['right'].set(0x0000ff)
         self.leds['left'].set(0x0000ff)
+
         self.current_motion.set(self.library.get('Stand'))
         self.fsm.transition_to('BLOCKING_MOTION')
 
         while self.step(self.time_step) != -1:
+
             self.detect_fall()
             self.fsm.execute_action()
 
