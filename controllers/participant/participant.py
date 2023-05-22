@@ -42,10 +42,6 @@ class Wrestler(Robot):
         self.RShoulderRoll = self.getDevice('RShoulderRoll')
         self.LShoulderRoll = self.getDevice('LShoulderRoll')
 
-        self.status = 'DEFAULT'
-        self.count = 0
-
-
         # load motion files
         self.current_motion = CurrentMotionManager()
         self.library = MotionLibrary()
@@ -54,43 +50,50 @@ class Wrestler(Robot):
         self.leds['right'].set(0x0000ff)
         self.leds['left'].set(0x0000ff)
 
+        status = 'DEFAULT'
+        count = 0
+
         #self.current_motion.set(self.library.get('Stand'))
         self.current_motion.set(self.library.get('Forwards'))
 
         while self.step(self.time_step) != -1:
             self.prev_status = self.status
-            self.detect_fall()
-            if self.status == 'FRONT_FALL':
-                self.current_motion.set(self.library.get('GetUpFront'))
-                self.status = 'BLOCKING'
-            elif self.status == 'BACK_FALL':
-                self.current_motion.set(self.library.get('GetUpBack'))
-                self.status = 'BLOCKING'
-            elif self.status == 'BLOCKING':
-                if self.current_motion.is_over():
-                    self.status = 'DEFAULT'
+            fall_status = self.detect_fall()
+            if fall_status is not None:
+                status = fall_status
 
-            if self.status == 'DEFAULT':
-                if self.count < 20:
+            if status == 'FRONT_FALL':
+                self.current_motion.set(self.library.get('GetUpFront'))
+                status = 'BLOCKING'
+            elif status == 'BACK_FALL':
+                self.current_motion.set(self.library.get('GetUpBack'))
+                status = 'BLOCKING'
+            elif status == 'BLOCKING':
+                if self.current_motion.is_over():
+                    status = 'DEFAULT'
+
+            if status == 'DEFAULT':
+                if count < 20:
                     self.current_motion.set(self.library.get('Forwards'))
                 else:
                     self.current_motion.set('TurnLeft180')
-                self.count += 1
-
+                count += 1
 
     def detect_fall(self):
         '''Detect a fall and update the FSM state.'''
+        next_status = None
         [acc_x, acc_y, _] = self.accelerometer.get_new_average()
         if acc_x < -7:
-            self.status = 'FRONT_FALL'
+            next_status = 'FRONT_FALL'
         elif acc_x > 7:
-            self.status = 'BACK_FALL'
+            next_status = 'BACK_FALL'
         if acc_y < -7:
             # Fell to its right, pushing itself on its back
             self.RShoulderRoll.setPosition(-1.2)
         elif acc_y > 7:
             # Fell to its left, pushing itself on its back
             self.LShoulderRoll.setPosition(1.2)
+        return next_status
 
 # create the Robot instance and run main loop
 wrestler = Wrestler()
