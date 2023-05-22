@@ -124,7 +124,7 @@ class WalkSideSmall(Robot):
         # retrieves the WorldInfo.basicTimeTime (ms) from the world file
         time_step = int(self.getBasicTimeStep())
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
-            action = 'Shoot' if count > 10 else 'StepSideLeft'
+            action = 'SideStepLeft'
             count += 1
             motion_library.play(action)
 
