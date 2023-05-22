@@ -99,6 +99,40 @@ class Wrestler(Robot):
             self.LShoulderRoll.setPosition(1.2)
         return next_status
 
+
+class WalkSmall(Robot):
+    def __init__(self):
+        super().__init__()
+        self.count_ = 0
+
+    def run(self):
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        time_step = int(self.getBasicTimeStep())
+        while self.step(time_step) != -1:  # mandatory function to make the simulation run
+            action = 'TurnLeft180' if self.count_ > 10 else 'Forwards'
+            self.count_ += 1
+            motion_library.play(action)
+
+
+class WalkSideSmall(Robot):
+    def __init__(self):
+        super().__init__()
+        self.count_ = 0
+
+    def run(self):
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        time_step = int(self.getBasicTimeStep())
+        while self.step(time_step) != -1:  # mandatory function to make the simulation run
+            action = 'Stand' if self.count_ > 10 else 'StepSideLeft'
+            self.count_ += 1
+            motion_library.play(action)
+
+
 # create the Robot instance and run main loop
-wrestler = Wrestler()
+#wrestler = Wrestler()
+wrestler = WalkSideSmall()
 wrestler.run()
