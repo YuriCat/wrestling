@@ -79,7 +79,7 @@ class Wrestler(Robot):
                 if not already_fall:
                     self.current_motion.set(self.library.get('ForwardLoop'))
                 else:
-                    self.current_motion.set('TurnLeft180')
+                    self.current_motion.set(self.library.get('TurnLeft180'))
                 count += 1
 
     def detect_fall(self):
