@@ -36,6 +36,9 @@ class Wrestler (Robot):
         time_step = int(self.getBasicTimeStep())
 
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
+            fall_detection = FallDetection(time_step, self)
+            fall_detection.check()
+
             action = 'SideStepRight' if self.count < 5 else 'Forwards'
             self.count += 1
             motion_library.play(action)
