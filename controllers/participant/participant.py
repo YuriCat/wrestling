@@ -151,14 +151,18 @@ class RightEscape(Robot):
 
         for _ in range(1):
             motion_library.play('TurnRight60')
-            self.step(time_step)
+            if self.step(time_step) == -1:
+                return
 
         for _ in range(3):
             motion_library.play('Forwards')
-            self.step(time_step)
+            if self.step(time_step) == -1:
+                return
 
-        while self.step(time_step) != -1:  # mandatory function to make the simulation run
+        while True:
             motion_library.play('Stand')
+            if self.step(time_step) != -1:
+                return
 
 
 # create the Robot instance and run main loop
