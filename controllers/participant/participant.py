@@ -21,7 +21,10 @@ import sys
 # We provide a set of utilities to help you with the development of your controller. You can find them in the utils folder.
 # If you want to see a list of examples that use them, you can go to https://github.com/cyberbotics/wrestling#demo-robot-controllers
 sys.path.append('..')
+from utils.accelerometer import Accelerometer
+from utils.finite_state_machine import FiniteStateMachine
 from utils.motion_library import MotionLibrary
+from utils.current_motion_manager import CurrentMotionManager
 
 
 class Wrestler (Robot):
