@@ -71,12 +71,11 @@ class Wrestler(Robot):
                     self.status = 'DEFAULT'
 
             if self.status == 'DEFAULT':
-                if self.current_motion.is_over():
-                    if self.count < 5:
-                        self.current_motion.set(self.library.get('Forwards'))
-                    else:
-                        self.current_motion.set('TurnLeft180')
-                    self.count += 1
+                if self.count < 20:
+                    self.current_motion.set(self.library.get('Forwards'))
+                else:
+                    self.current_motion.set('TurnLeft180')
+                self.count += 1
 
 
     def detect_fall(self):
