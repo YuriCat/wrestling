@@ -43,6 +43,8 @@ class Wrestler(Robot):
         self.LShoulderRoll = self.getDevice('LShoulderRoll')
 
         self.status = 'DEFAULT'
+        self.count += 1
+
 
         # load motion files
         self.current_motion = CurrentMotionManager()
@@ -55,6 +57,7 @@ class Wrestler(Robot):
         self.current_motion.set(self.library.get('Stand'))
 
         while self.step(self.time_step) != -1:
+            self.prev_status = self.status
             self.detect_fall()
             if self.status == 'FRONT_FALL':
                 self.current_motion.set(self.library.get('GetUpFront'))
@@ -66,10 +69,14 @@ class Wrestler(Robot):
                 if self.current_motion.is_over():
                     self.status = 'DEFAULT'
 
-
             if self.status == 'DEFAULT':
-                if self.current_motion.get() != self.library.get('ForwardLoop'):
-                    self.current_motion.set(self.library.get('ForwardLoop'))
+                if self.current_motion.is_over():
+                    if self.count < 5:
+                        self.current_motion.set(self.library.get('Forwards'))
+                    else:
+                        self.current_motion.set('TurnLeft180')
+                    self.count += 1
+
 
     def detect_fall(self):
         '''Detect a fall and update the FSM state.'''
