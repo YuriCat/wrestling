@@ -56,7 +56,7 @@ class Wrestler(Robot):
         camera = Camera()
         already_fall = False
 
-        self.current_motion.set(self.library.get('Stand'))
+        self.current_motion.set(self.library.get('ForwardLoop'))
 
         while self.step(self.time_step) != -1:
             prev_status = status
