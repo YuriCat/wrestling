@@ -68,6 +68,7 @@ class Wrestler(Robot):
                 if self.current_motion.is_over():
                     self.status = 'DEFAULT'
 
+
             if self.status == 'DEFAULT':
                 if self.current_motion.get() != self.library.get('ForwardLoop'):
                     self.current_motion.set(self.library.get('ForwardLoop'))
