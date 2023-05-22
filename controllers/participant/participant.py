@@ -56,7 +56,7 @@ class Wrestler(Robot):
         camera = Camera()
         already_fall = False
 
-        self.current_motion.set(self.library.get('Forwards'))
+        self.current_motion.set(self.library.get('Stand'))
 
         while self.step(self.time_step) != -1:
             prev_status = status
@@ -76,8 +76,8 @@ class Wrestler(Robot):
                     status = 'DEFAULT'
 
             if status == 'DEFAULT':
-                if count < 500 and not already_fall:
-                    self.current_motion.set(self.library.get('Forwards'))
+                if not already_fall:
+                    self.current_motion.set(self.library.get('ForwardLoop'))
                 else:
                     self.current_motion.set('TurnLeft180')
                 count += 1
