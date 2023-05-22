@@ -43,7 +43,7 @@ class Wrestler(Robot):
         self.LShoulderRoll = self.getDevice('LShoulderRoll')
 
         self.status = 'DEFAULT'
-        self.count += 1
+        self.count = 0
 
 
         # load motion files
