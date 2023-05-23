@@ -161,7 +161,7 @@ class RightEscape(Robot):
 
         while True:
             motion_library.play('Stand')
-            if self.step(time_step) != -1:
+            if self.step(time_step) == -1:
                 return
 
 
