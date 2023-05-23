@@ -154,10 +154,10 @@ class RightEscape(Robot):
                 return
             motion_library.play('TurnRight60')
 
-        for _ in range(3):
+        for _ in range(2):
             if self.step(time_step) == -1:
-                return
-            motion_library.play('Forwards')
+                pass #return
+            motion_library.play('ForwardLoop')
 
         while self.step(time_step) != -1:
             motion_library.play('Stand')
