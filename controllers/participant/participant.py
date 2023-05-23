@@ -149,10 +149,10 @@ class ForwardStop(Robot):
         time_step = int(self.getBasicTimeStep())
         total_time = 0
 
-        while total_time < 6000:
+        while total_time < 5000:
             if self.step(time_step) == -1:
                 return
-            motion_library.play('Forward')
+            motion_library.play('Forwards')
             total_time += time_step
 
         while self.step(time_step) != -1:  # mandatory function to make the simulation run
@@ -243,9 +243,9 @@ class Fatima (Robot):
 
 
 # create the Robot instance and run main loop
-wrestler = Wrestler()
+#wrestler = Wrestler()
 #wrestler = RightEscape()
 #wrestler = WalkSideSmall()
-#wrestler = ForwardStop()
+wrestler = ForwardStop()
 #wrestler = Fatima()
 wrestler.run()
