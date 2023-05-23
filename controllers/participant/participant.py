@@ -141,6 +141,25 @@ class Forward(Robot):
             motion_library.play(action)
 
 
+class ForwardStop(Robot):
+    def run(self):
+        # to load all the motions from the motions folder, we use the MotionLibrary class:
+        motion_library = MotionLibrary()
+        # retrieves the WorldInfo.basicTimeTime (ms) from the world file
+        time_step = int(self.getBasicTimeStep())
+        total_time = 0
+
+        while total_time < 6000:
+            if self.step(time_step) == -1:
+                return
+            motion_library.play('Forward')
+            total_time += time_step
+
+        while self.step(time_step) != -1:  # mandatory function to make the simulation run
+            action = 'TurnLeft180'
+            motion_library.play(action)
+
+
 class RightEscape(Robot):
     def run(self):
         count = 0
@@ -164,7 +183,8 @@ class RightEscape(Robot):
 
 
 # create the Robot instance and run main loop
-wrestler = Wrestler()
+#wrestler = Wrestler()
 #wrestler = RightEscape()
 #wrestler = WalkSideSmall()
+wrestler = ForwardStop()
 wrestler.run()
