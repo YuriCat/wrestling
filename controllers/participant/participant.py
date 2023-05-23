@@ -182,10 +182,10 @@ class RightEscape(Robot):
             motion_library.play('Stand')
 
 
-from utils.image_processing import ImageProcessing as IP
-from utils.fall_detection import FallDetection
-from utils.gait_manager import GaitManager
-from utils.camera import Camera
+#from utils.image_processing import ImageProcessing as IP
+#from utils.fall_detection import FallDetection
+#from utils.gait_manager import GaitManager
+#from utils.camera import Camera
 
 
 class Fatima (Robot):
@@ -247,5 +247,5 @@ wrestler = Wrestler()
 #wrestler = RightEscape()
 #wrestler = WalkSideSmall()
 #wrestler = ForwardStop()
-wrestler = Fatima()
+#wrestler = Fatima()
 wrestler.run()
