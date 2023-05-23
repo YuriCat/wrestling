@@ -27,6 +27,7 @@ from utils.current_motion_manager import CurrentMotionManager
 #from utils.camera import Camera
 
 
+
 class Wrestler(Robot):
     def __init__(self):
         Robot.__init__(self)
@@ -55,8 +56,16 @@ class Wrestler(Robot):
         count = 0
         #camera = Camera()
         already_fall = False
+        total_time = 0
 
-        self.current_motion.set(self.library.get('ForwardLoop'))
+        motion_library = MotionLibrary()
+        while total_time < 12000:
+            if self.step(time_step) == -1:
+                return
+            motion_library.play('Forwards')
+            total_time += time_step
+
+        #self.current_motion.set(self.library.get('ForwardLoop'))
 
         while self.step(self.time_step) != -1:
             prev_status = status
@@ -80,7 +89,8 @@ class Wrestler(Robot):
                     if self.current_motion.get() != self.library.get('ForwardLoop'):
                         self.current_motion.set(self.library.get('ForwardLoop'))
                 else:
-                    self.current_motion.set(self.library.get('TurnLeft180'))
+                    #self.current_motion.set(self.library.get('TurnLeft180'))
+                    motion_library.play('Forwards')
                 count += 1
 
     def _detect_fall(self):
