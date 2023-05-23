@@ -149,7 +149,7 @@ class ForwardStop(Robot):
         time_step = int(self.getBasicTimeStep())
         total_time = 0
 
-        while total_time < 5000:
+        while total_time < 12000:
             if self.step(time_step) == -1:
                 return
             motion_library.play('Forwards')
