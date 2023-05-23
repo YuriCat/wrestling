@@ -165,6 +165,6 @@ class RightEscape(Robot):
 
 # create the Robot instance and run main loop
 #wrestler = Wrestler()
-wrestler = RightEscape()
-#wrestler = WalkSideSmall()
+#wrestler = RightEscape()
+wrestler = WalkSideSmall()
 wrestler.run()
